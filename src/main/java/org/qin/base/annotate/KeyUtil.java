@@ -2,7 +2,9 @@ package org.qin.base.annotate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
@@ -16,9 +18,12 @@ import java.util.stream.Collectors;
 /**
  * @author LiuQin
  */
+
+
 @Slf4j
+@Component
 public class KeyUtil {
-    public static String generate(Method method, String[] excludeKeys, Object... args) throws JsonProcessingException {
+    public String generate(Method method, String[] excludeKeys, Object... args) {
         StringBuilder sb = new StringBuilder(method.toString());
         for (Object arg : args) {
             log.info("arg:" + arg);
@@ -39,7 +44,8 @@ public class KeyUtil {
         return md5(sb.toString());
     }
 
-    public static String castString(Object object) throws JsonProcessingException {
+    @SneakyThrows
+    public String castString(Object object) {
         if (object == null) {
             return "null";
         }
@@ -47,7 +53,11 @@ public class KeyUtil {
             return object.toString();
         }
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(object);
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     /**
@@ -57,7 +67,7 @@ public class KeyUtil {
      * @author liuqin
      * @date 2020/6/18
      */
-    public static String md5(String str) {
+    public String md5(String str) {
         StringBuilder buf = new StringBuilder();
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -80,21 +90,5 @@ public class KeyUtil {
         return buf.toString();
     }
 
-    /**
-     * @return
-     * @descripttion 取出Map中的特定数据
-     * @parms
-     * @author liuqin
-     * @date 2020/6/18
-     */
-    public static String getToken(Object[] args, String key) {
-        for (Object arg : args) {
-            if (arg instanceof Map<?, ?>) {
-                if (((Map<?, ?>) arg).containsKey(key)) {
-                    return (String) ((Map<?, ?>) arg).get(key);
-                }
-            }
-        }
-        return "";
-    }
+
 }

@@ -34,6 +34,8 @@ public class IdempotentWaitForAop {
     private RedisLock redisLock;
     @Autowired
     private Redisson redissonLock;
+    @Autowired
+    private KeyUtil keyUtil;
 
     /**
      * @return
@@ -46,6 +48,7 @@ public class IdempotentWaitForAop {
     @Around("@annotation(idempotentWaitFor)")
     public Object around(ProceedingJoinPoint joinPoint, IdempotentWaitFor idempotentWaitFor) {
 
+        long l = System.currentTimeMillis();
 
         String keyLock = "";
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
@@ -61,9 +64,10 @@ public class IdempotentWaitForAop {
                 ChecksContainer.add(className, instance);
             }
             // 触发后端幂等检查，符合条件幂等
-            boolean check = instance.check(checkReturnVar, args);
-            if (!"".equals(checkReturnVar) && checkReturnVar != null) {
-                checkReturnVar = checkReturnVar + "_";
+            String[] checkArr = {checkReturnVar};
+            boolean check = instance.check(checkArr, args);
+            if (!"".equals(checkArr[0]) && checkArr != null && checkArr[0] != null) {
+                checkReturnVar = checkArr[0] + "_";
             }
 
             if (!check) {
@@ -72,7 +76,7 @@ public class IdempotentWaitForAop {
                 return joinPoint.proceed();
             }
             // 试图在Map中去掉部分key,排除其幂等影响,生成加密key
-            String genKey = KeyUtil.generate(method, idempotentWaitFor.excludeKeys(), args);
+            String genKey = keyUtil.generate(method, idempotentWaitFor.excludeKeys(), args);
             String key = String.format(KEY_TEMPLATE, checkReturnVar + genKey);
             keyLock = key + "@lock";
             log.info("key:" + key);
@@ -88,7 +92,7 @@ public class IdempotentWaitForAop {
                 lock = redisLock.getLock(keyLock, idempotentWaitFor.seconds());
             } else {
                 //. 尝试加锁，最多等待3秒，上锁以后idempotentWaitFor.seconds()秒自动解锁
-                lock = redissonLock.getLock(keyLock).tryLock(3, idempotentWaitFor.seconds(), TimeUnit.SECONDS);
+                lock = redissonLock.getLock(keyLock).tryLock(10, idempotentWaitFor.seconds()*1000, TimeUnit.MILLISECONDS);
             }
             // 锁机制上锁成功
             if (lock) {
@@ -100,6 +104,9 @@ public class IdempotentWaitForAop {
             } else {
                 objectResult = readFromRedis(joinPoint, idempotentWaitFor, key, keyLock);
             }
+
+            long l1 = System.currentTimeMillis();
+            log.info("time:"+String.valueOf(l1-l));
             return objectResult;
         } catch (Throwable throwable) {
             deleteLock(idempotentWaitFor.lockType(), keyLock);
@@ -139,7 +146,7 @@ public class IdempotentWaitForAop {
      */
     private Object lockAndExecute(ProceedingJoinPoint joinPoint, IdempotentWaitFor idempotentWaitFor, String key, String keyLock) throws Throwable {
         Object proceed = joinPoint.proceed();
-        redisLock.setKeyAndCacheTime(key, KeyUtil.castString(proceed), idempotentWaitFor.seconds());
+        redisLock.setKeyAndCacheTime(key, keyUtil.castString(proceed), idempotentWaitFor.seconds());
 //        log.info("系统正常返回结果:" + KeyUtil.toString(proceed));
 //        log.info("当前正在解锁：" + keyLock);
         // redisLock.releaseLock(keyLock);
@@ -158,23 +165,24 @@ public class IdempotentWaitForAop {
     @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
     private Object readFromRedis(ProceedingJoinPoint proceedingJoinPoint, IdempotentWaitFor idempotentWaitFor, String key, String keyLock) throws Exception {
 //        log.info("尝试缓存" + keyLock);
-        int maxcount = 5;
+
         int tryCount = 0;
         boolean take = true;
         int waitTime = idempotentWaitFor.seconds() + 3;
+        int maxcount = 20*waitTime;
         String redisResult = "";
         while (take) {
             redisResult = redisLock.getValue(key);
             tryCount++;
-            take = "".equals(redisResult) || redisResult == null && maxcount > tryCount;
-            Thread.sleep(200 * waitTime);
+            take = ("".equals(redisResult) || redisResult == null) && maxcount > tryCount;
+            Thread.sleep(50);
         }
         if (!"".equals(redisResult) && redisResult != null) {
             log.info("系统尝试次数:" + tryCount);
-            log.info("系统获取到了缓存结果:" + redisResult);
+            log.info("系统获取到了缓存结果:" + redisResult + ",key=>" + key);
             return JSON.parse(redisResult);
         } else {
-            log.info("redisResult:" + redisResult);
+            log.info("redisResult:" + redisResult + ",key=>" + key);
             log.error("获取幂等失败");
             throw new Exception("获取幂等失败");
         }

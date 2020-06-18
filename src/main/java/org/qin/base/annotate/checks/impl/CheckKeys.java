@@ -7,6 +7,7 @@ package org.qin.base.annotate.checks.impl;
  * @author: liuqin
  * @date: 2020/6/18 09:18
  */
+
 public interface CheckKeys {
     /**
      * @return 是否开启幂等
@@ -18,7 +19,7 @@ public interface CheckKeys {
      * @parms returnVar args 返回给方法的标识
      * @parms args args 参数
      */
-    boolean check(String returnVar, Object[] args);
+    boolean check(String[]  returnVar, Object[] args);
 }
 
 
