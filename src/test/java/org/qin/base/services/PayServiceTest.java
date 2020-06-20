@@ -42,10 +42,8 @@ public class PayServiceTest {
         ExecutorService executorService = Executors.newFixedThreadPool(100);
         for (int i = 0; i < 100; i++) {
             executorService.execute(() -> {
-
+                payService.Redis();
                 payService.pay2(map, "123");
-
-
                 //    payService.pay(map2, "123");
             });
 

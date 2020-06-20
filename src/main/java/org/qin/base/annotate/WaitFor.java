@@ -1,6 +1,6 @@
 package org.qin.base.annotate;
 
-import org.qin.base.annotate.checks.impl.CheckKeys;
+import org.qin.base.annotate.checks.impl.ICheckKeyService;
 import org.qin.base.annotate.checks.impl.NoCheck;
 
 import java.lang.annotation.ElementType;
@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface IdempotentWaitFor {
+public @interface WaitFor {
 
     int seconds() default 3;// 幂等时间
 
@@ -26,5 +26,5 @@ public @interface IdempotentWaitFor {
 
     String[] excludeKeys() default {};// 排除键
 
-    Class<? extends CheckKeys> keysCheck() default NoCheck.class; // 检验类
+    Class<? extends ICheckKeyService> keysCheck() default NoCheck.class; // 检验类
 }

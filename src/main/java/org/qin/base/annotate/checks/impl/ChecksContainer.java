@@ -1,8 +1,7 @@
 package org.qin.base.annotate.checks.impl;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @title: ChecksContainer
@@ -11,7 +10,7 @@ import java.util.Map;
  * @date: 2020/6/18 11:16
  */
 public class ChecksContainer {
-    private static Map<String, CheckKeys> IOC;
+    private static ConcurrentHashMap<String, ICheckKeyService> IOC;
 
     /**
      * @return
@@ -20,9 +19,9 @@ public class ChecksContainer {
      * @author liuqin
      * @date 2020/6/18
      */
-    public static void add(String classname, CheckKeys checkKeys) {
+    public static void add(String classname, ICheckKeyService checkKeys) {
         if (ChecksContainer.IOC == null) {
-            ChecksContainer.IOC = new HashMap<>(10);
+            ChecksContainer.IOC = new ConcurrentHashMap<>(16);
         }
         if (!ChecksContainer.IOC.containsKey(classname)) {
             ChecksContainer.IOC.put(classname, checkKeys);
@@ -36,9 +35,9 @@ public class ChecksContainer {
      * @author liuqin
      * @date 2020/6/18
      */
-    public static CheckKeys get(String classname) {
+    public static ICheckKeyService get(String classname) {
         if (ChecksContainer.IOC == null) {
-            ChecksContainer.IOC = new HashMap<>(10);
+            ChecksContainer.IOC = new ConcurrentHashMap<>(16);
             return null;
         }
         if (ChecksContainer.IOC.containsKey(classname)) {

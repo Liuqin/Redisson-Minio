@@ -1,8 +1,6 @@
 package org.qin.base.annotate;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.SneakyThrows;
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +24,7 @@ public class KeyUtil {
     public String generate(Method method, String[] excludeKeys, Object... args) {
         StringBuilder sb = new StringBuilder(method.toString());
         for (Object arg : args) {
-            log.info("arg:" + arg);
+//            log.info("arg:" + arg);
             if (arg instanceof Map<?, ?>) {
                 List<Map.Entry<?, ?>> list = new ArrayList<>(((Map<?, ?>) arg).entrySet());
                 if (excludeKeys != null && excludeKeys.length > 0) {
@@ -40,11 +38,11 @@ public class KeyUtil {
                 sb.append(castString(arg));
             }
         }
-        log.info("幂等方法和参数:" + sb.toString());
+        //  log.info("幂等方法和参数:" + sb.toString());
         return md5(sb.toString());
     }
 
-    @SneakyThrows
+
     public String castString(Object object) {
         if (object == null) {
             return "null";
@@ -52,12 +50,7 @@ public class KeyUtil {
         if (object instanceof Number) {
             return object.toString();
         }
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            throw new Exception(e.getMessage());
-        }
+        return JSON.toJSONString(object);
     }
 
     /**

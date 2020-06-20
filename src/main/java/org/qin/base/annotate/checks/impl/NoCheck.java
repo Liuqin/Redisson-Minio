@@ -10,10 +10,12 @@ import org.springframework.stereotype.Component;
  * @date: 2020/6/18 09:22
  */
 @Component
-public class NoCheck implements CheckKeys {
+public class NoCheck implements ICheckKeyService {
     @Override
-    public boolean check(String[] returnVar, Object[] args) {
-        return false;
+    public CheckResult check(Object[] args) {
+        CheckResult checkResult = new CheckResult();
+        checkResult.setValid(false);
+        return checkResult;
     }
 }
 
