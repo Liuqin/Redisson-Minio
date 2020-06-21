@@ -2,9 +2,9 @@ package org.qin.base.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.qin.base.annotate.WaitFor;
-import org.qin.base.annotate.LockType;
-import org.qin.base.annotate.RedisLock;
-import org.qin.base.annotate.checks.impl.TokenCheck;
+import org.qin.base.annotate.checkUtil.LockType;
+import org.qin.base.annotate.checkUtil.RedisLock;
+import org.qin.base.annotate.checkImpl.TokenCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class PayService {
         return 0;
     }
 
-    @WaitFor(seconds = 6, lockType = LockType.RedisLock, keysCheck = TokenCheck.class, excludeKeys = {"name1", "liuq1"})
+    @WaitFor(seconds = 6, lockType = LockType.RedissonLock, keysCheck = TokenCheck.class, excludeKeys = {"name1", "liuq1"})
     public int pay2(Map<String, Object> abc, String xyz) {
         log.info("模拟函数执行时间2");
         try {

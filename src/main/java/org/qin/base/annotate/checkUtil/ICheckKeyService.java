@@ -1,9 +1,9 @@
-package org.qin.base.annotate.checks.impl;
+package org.qin.base.annotate.checkUtil;
 
 
 /**
  * @title: CheckKeys
- * @decription:
+ * @decription: 幂等公共检查接口
  * @author: liuqin
  * @date: 2020/6/18 09:18
  */

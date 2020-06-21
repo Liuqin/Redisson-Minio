@@ -1,4 +1,4 @@
-package org.qin.base.annotate.checks.impl;
+package org.qin.base.annotate.checkUtil;
 
 
 import org.springframework.stereotype.Component;

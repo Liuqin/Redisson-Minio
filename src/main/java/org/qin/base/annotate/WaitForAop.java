@@ -8,9 +8,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.qin.base.annotate.checks.impl.CheckResult;
-import org.qin.base.annotate.checks.impl.ChecksContainer;
-import org.qin.base.annotate.checks.impl.ICheckKeyService;
+import org.qin.base.annotate.checkUtil.*;
 import org.redisson.Redisson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,6 +40,8 @@ public class WaitForAop {
     /**
      * @return
      * @descripttion 环绕通知逻辑
+     * 基于redis lock 和redisison lock 的幂等锁
+     * 对Waitfor 注解实现幂等
      * @parms
      * @author liuqin
      * @date 2020/6/3
@@ -130,6 +130,14 @@ public class WaitForAop {
         }
     }
 
+    /**
+     * @return
+     * @descripttion 负责检查是否符合幂等条件
+     * 同时帮助反射对象加入自定义容器
+     * @parms
+     * @author liuqin
+     * @date 2020/6/20
+     */
     private ICheckKeyService doCheckKeyFromIoc(ProceedingJoinPoint joinPoint, Class<? extends ICheckKeyService> cls, String className, ICheckKeyService instance) throws Exception {
         if (instance == null) {
             // 静态

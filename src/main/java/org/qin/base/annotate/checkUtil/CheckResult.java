@@ -1,11 +1,11 @@
-package org.qin.base.annotate.checks.impl;
+package org.qin.base.annotate.checkUtil;
 
 
 import lombok.Data;
 
 /**
  * @title: CheckResult
- * @decription:
+ * @decription: 定义是需要否幂等
  * @author: liuqin
  * @date: 2020/6/19 16:36
  */

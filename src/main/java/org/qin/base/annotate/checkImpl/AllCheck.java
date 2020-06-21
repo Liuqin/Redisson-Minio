@@ -1,5 +1,8 @@
-package org.qin.base.annotate.checks.impl;
+package org.qin.base.annotate.checkImpl;
 
+
+import org.qin.base.annotate.checkUtil.CheckResult;
+import org.qin.base.annotate.checkUtil.ICheckKeyService;
 
 /**
  * @title: AllCheck

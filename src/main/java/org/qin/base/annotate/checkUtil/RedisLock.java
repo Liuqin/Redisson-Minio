@@ -1,4 +1,4 @@
-package org.qin.base.annotate;
+package org.qin.base.annotate.checkUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;

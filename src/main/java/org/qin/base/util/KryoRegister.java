@@ -21,5 +21,5 @@ import java.lang.annotation.Target;
 
 
 public @interface KryoRegister {
-    int seconds() default 3;// 幂等时间
+    int seconds() default 3;// 自动注解
 }

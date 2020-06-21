@@ -1,4 +1,4 @@
-package org.qin.base.annotate;
+package org.qin.base.annotate.checkUtil;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package org.qin.base.annotate;
+package org.qin.base.annotate.checkUtil;
 
 /**
  * @title: LockType
