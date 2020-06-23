@@ -2,9 +2,9 @@ package org.qin.base.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.qin.base.annotate.WaitFor;
+import org.qin.base.annotate.checkImpl.TokenCheck;
 import org.qin.base.annotate.checkUtil.LockType;
 import org.qin.base.annotate.checkUtil.RedisLock;
-import org.qin.base.annotate.checkImpl.TokenCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,11 +41,11 @@ public class PayService {
 
     @Autowired
     private RedisLock redisLock;
-    public void Redis()
-    {
+
+    public void Redis() {
         long l = System.currentTimeMillis();
-        redisLock.setKeyAndCacheTime("123","1234",10000);
+        redisLock.setKeyAndCacheTime("123", "1234", 10000);
         redisLock.getValue("123");
-        log.info(String.valueOf(System.currentTimeMillis()-l));
+        log.info(String.valueOf(System.currentTimeMillis() - l));
     }
 }

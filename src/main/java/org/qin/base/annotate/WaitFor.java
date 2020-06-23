@@ -1,7 +1,7 @@
 package org.qin.base.annotate;
 
-import org.qin.base.annotate.checkUtil.ICheckKeyService;
 import org.qin.base.annotate.checkImpl.NoCheck;
+import org.qin.base.annotate.checkUtil.ICheckKeyService;
 import org.qin.base.annotate.checkUtil.LockType;
 
 import java.lang.annotation.ElementType;

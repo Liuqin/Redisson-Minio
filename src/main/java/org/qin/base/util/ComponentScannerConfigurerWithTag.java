@@ -20,6 +20,7 @@ import java.util.Set;
 public class ComponentScannerConfigurerWithTag implements ApplicationListener<ContextRefreshedEvent>, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
@@ -29,11 +30,11 @@ public class ComponentScannerConfigurerWithTag implements ApplicationListener<Co
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         // 获取自定义注解 KryoRegister
         Class<? extends Annotation> annotationClass = KryoRegister.class;
-        Map<String,Object> beanWhithAnnotation = applicationContext.getBeansWithAnnotation(annotationClass);
-        Set<Map.Entry<String,Object>> entitySet = beanWhithAnnotation.entrySet();
-        for (Map.Entry<String,Object> entry :entitySet){
+        Map<String, Object> beanWhithAnnotation = applicationContext.getBeansWithAnnotation(annotationClass);
+        Set<Map.Entry<String, Object>> entitySet = beanWhithAnnotation.entrySet();
+        for (Map.Entry<String, Object> entry : entitySet) {
             Class<? extends Object> clazz = entry.getValue().getClass();//获取bean对象
-            System.out.println("================"+clazz.getName());
+            System.out.println("================" + clazz.getName());
 //            KryoRegister componentDesc = AnnotationUtils.findAnnotation(clazz,KryoRegister.class);
 //            System.out.println("==================="+componentDesc.channel());
 

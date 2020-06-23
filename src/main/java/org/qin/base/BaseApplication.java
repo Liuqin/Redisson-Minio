@@ -14,10 +14,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BaseApplication {
 
     public static void main(String[] args) {
-       // ParserConfig.getGlobalInstance().setSafeMode(true);
+        // ParserConfig.getGlobalInstance().setSafeMode(true);
         SpringApplication.run(BaseApplication.class, args);
     }
-
 
 
 }
