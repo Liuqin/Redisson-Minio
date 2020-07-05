@@ -3,6 +3,7 @@ package org.qin.base.redisson;
 import org.redisson.Redisson;
 import org.redisson.config.ClusterServersConfig;
 import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,11 +36,18 @@ public class RedissonConfig {
             ClusterServersConfig clusterServersConfig = config.useClusterServers()
                     .addNodeAddress(clusterNodes.toArray(new String[clusterNodes.size()]));
             //设置密码
-            clusterServersConfig.setPassword(redisConfigProperties.getPassword());
+            String password = redisConfigProperties.getPassword();
+            if (!"".equals(password) && password != null) {
+                clusterServersConfig.setPassword(password);
+            }
         } else {
             String url = redisConfigProperties.getHost() + ":" + redisConfigProperties.getPort();
             String password = redisConfigProperties.getPassword();
-            config.useSingleServer().setAddress("redis://" + url).setPassword(password);
+            SingleServerConfig singleServerConfig = config.useSingleServer().setAddress("redis://" + url);
+            if (!"".equals(password) && password != null) {
+                singleServerConfig.setPassword(password);
+            }
+
         }
 
         return (Redisson) Redisson.create(config);
