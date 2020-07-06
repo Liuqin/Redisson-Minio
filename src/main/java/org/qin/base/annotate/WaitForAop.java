@@ -186,13 +186,8 @@ public class WaitForAop {
      * @date 2020/6/3
      */
     private Object lockAndExecute(ProceedingJoinPoint joinPoint, LockType lockType, int seconds, String key, String keyLock) throws Throwable {
-//        RemoveCache(key);
         Object proceed = joinPoint.proceed();
-//        IdempotentResult.put(key, proceed);
         redisLock.setKeyAndCacheTime(key, keyUtil.castString(proceed), seconds);
-//        log.info("系统正常返回结果:" + KeyUtil.toString(proceed));
-//        log.info("当前正在解锁：" + keyLock);
-//         redisLock.releaseLock(keyLock);
         deleteLock(lockType, keyLock);
         return proceed;
     }

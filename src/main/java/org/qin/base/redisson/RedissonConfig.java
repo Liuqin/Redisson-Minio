@@ -35,11 +35,6 @@ public class RedissonConfig {
             }
             ClusterServersConfig clusterServersConfig = config.useClusterServers()
                     .addNodeAddress(clusterNodes.toArray(new String[clusterNodes.size()]));
-            //设置密码
-            String password = redisConfigProperties.getPassword();
-            if (!"".equals(password) && password != null) {
-                clusterServersConfig.setPassword(password);
-            }
         } else {
             String url = redisConfigProperties.getHost() + ":" + redisConfigProperties.getPort();
             String password = redisConfigProperties.getPassword();
