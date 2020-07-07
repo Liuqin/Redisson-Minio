@@ -1,8 +1,8 @@
-package org.qin.base.annotate.checks.impl;
+package org.qin.base.annotate.checkImpl;
 
 
+import org.qin.base.annotate.checkImpl.CheckKeys;
 import org.qin.base.annotate.checkutil.KeyToken;
-import org.qin.base.annotate.checkutil.KeyUtil;
 
 /**
  * @title: CheckUser
