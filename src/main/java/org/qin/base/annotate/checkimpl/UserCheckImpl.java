@@ -1,7 +1,6 @@
-package org.qin.base.annotate.checkImpl;
+package org.qin.base.annotate.checkimpl;
 
 
-import org.qin.base.annotate.checkImpl.CheckKeys;
 import org.qin.base.annotate.checkutil.KeyToken;
 
 /**
@@ -10,7 +9,7 @@ import org.qin.base.annotate.checkutil.KeyToken;
  * @author: liuqin
  * @date: 2020/6/18 09:58
  */
-public class UserCheck implements CheckKeys {
+public class UserCheckImpl implements CheckKeys {
     @Override
     public boolean check(String returnVar, Object[] args) {
         returnVar = KeyToken.getToken(args, "clientSeqNo");

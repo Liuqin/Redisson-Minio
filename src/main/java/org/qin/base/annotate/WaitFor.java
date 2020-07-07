@@ -1,6 +1,6 @@
 package org.qin.base.annotate;
 
-import org.qin.base.annotate.checkImpl.NoCheck;
+import org.qin.base.annotate.checkimpl.NoCheckImpl;
 import org.qin.base.annotate.checkutil.ICheckKeyService;
 import org.qin.base.annotate.checkutil.LockType;
 
@@ -27,5 +27,5 @@ public @interface WaitFor {
 
     String[] excludeKeys() default {};// 排除键
 
-    Class<? extends ICheckKeyService> keysCheck() default NoCheck.class; // 检验类
+    Class<? extends ICheckKeyService> keysCheck() default NoCheckImpl.class; // 检验类
 }

@@ -1,4 +1,4 @@
-package org.qin.base.annotate.checkImpl;
+package org.qin.base.annotate.checkimpl;
 
 
 import org.qin.base.annotate.checkutil.CheckResult;
@@ -10,7 +10,7 @@ import org.qin.base.annotate.checkutil.ICheckKeyService;
  * @author: liuqin
  * @date: 2020/6/19 13:53
  */
-public class AllCheck implements ICheckKeyService {
+public class AllCheckImpl implements ICheckKeyService {
 
 
     @Override

@@ -1,4 +1,3 @@
-
 package org.qin.base.annotate.checkutil;
 
 import org.springframework.beans.factory.annotation.Autowired;

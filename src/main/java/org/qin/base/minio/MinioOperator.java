@@ -48,10 +48,9 @@ public class MinioOperator {
      * @date 2020/6/5
      */
     public ExecutorService newCachedThreadPool() {
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+        return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
                 60L, TimeUnit.SECONDS,
                 new SynchronousQueue<Runnable>());
-        return threadPoolExecutor;
     }
 
 
