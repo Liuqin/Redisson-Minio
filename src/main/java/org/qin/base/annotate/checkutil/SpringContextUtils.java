@@ -1,4 +1,4 @@
-package org.qin.base.annotate;
+package org.qin.base.annotate.checkutil;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

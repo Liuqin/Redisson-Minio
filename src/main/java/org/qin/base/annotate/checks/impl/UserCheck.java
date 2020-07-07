@@ -1,6 +1,9 @@
 package org.qin.base.annotate.checks.impl;
 
 
+import org.qin.base.annotate.checkutil.KeyToken;
+import org.qin.base.annotate.checkutil.KeyUtil;
+
 /**
  * @title: CheckUser
  * @decription: 手动实现用户幂等
@@ -10,7 +13,7 @@ package org.qin.base.annotate.checks.impl;
 public class UserCheck implements CheckKeys {
     @Override
     public boolean check(String returnVar, Object[] args) {
-        returnVar = KeyUtil.getToken(args, "clientSeqNo");
+        returnVar = KeyToken.getToken(args, "clientSeqNo");
         return returnVar != null && "" != returnVar;
     }
 }

@@ -1,8 +1,8 @@
-package org.qin.base.annotate;
+package org.qin.base.annotate.checkutil;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
@@ -16,12 +16,15 @@ import java.util.stream.Collectors;
 /**
  * @author LiuQin
  */
+
+
 @Slf4j
+@Component
 public class KeyUtil {
-    public static String generate(Method method, String[] excludeKeys, Object... args) throws JsonProcessingException {
+    public static String generate(Method method, String[] excludeKeys, Object... args) {
         StringBuilder sb = new StringBuilder(method.toString());
         for (Object arg : args) {
-            log.info("arg:" + arg);
+//            log.info("arg:" + arg);
             if (arg instanceof Map<?, ?>) {
                 List<Map.Entry<?, ?>> list = new ArrayList<>(((Map<?, ?>) arg).entrySet());
                 if (excludeKeys != null && excludeKeys.length > 0) {
@@ -35,19 +38,19 @@ public class KeyUtil {
                 sb.append(castString(arg));
             }
         }
-        log.info("幂等方法和参数:" + sb.toString());
+        //  log.info("幂等方法和参数:" + sb.toString());
         return md5(sb.toString());
     }
 
-    public static String castString(Object object) throws JsonProcessingException {
+
+    public static String castString(Object object) {
         if (object == null) {
             return "null";
         }
         if (object instanceof Number) {
             return object.toString();
         }
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(object);
+        return JSON.toJSONString(object);
     }
 
     /**
@@ -80,21 +83,5 @@ public class KeyUtil {
         return buf.toString();
     }
 
-    /**
-     * @return
-     * @descripttion 取出Map中的特定数据
-     * @parms
-     * @author liuqin
-     * @date 2020/6/18
-     */
-    public static String getToken(Object[] args, String key) {
-        for (Object arg : args) {
-            if (arg instanceof Map<?, ?>) {
-                if (((Map<?, ?>) arg).containsKey(key)) {
-                    return (String) ((Map<?, ?>) arg).get(key);
-                }
-            }
-        }
-        return "";
-    }
+
 }

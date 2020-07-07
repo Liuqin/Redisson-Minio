@@ -3,8 +3,8 @@ package org.qin.base.services;
 import lombok.extern.slf4j.Slf4j;
 import org.qin.base.annotate.WaitFor;
 import org.qin.base.annotate.checkImpl.TokenCheck;
-import org.qin.base.annotate.checkUtil.LockType;
-import org.qin.base.annotate.checkUtil.RedisLock;
+import org.qin.base.annotate.checkutil.LockType;
+import org.qin.base.annotate.checkutil.RedisLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

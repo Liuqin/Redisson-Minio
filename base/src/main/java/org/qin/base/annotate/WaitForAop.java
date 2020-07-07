@@ -83,7 +83,7 @@ public class WaitForAop {
             Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
             // 试图在Map中去掉部分key,排除其幂等影响,生成加密key
             String[] ex = idempotentWaitFor.excludeKeys();
-            String genKey = KeyUtil.generate(method, ex, args);
+            String genKey = keyUtil.generate(method, ex, args);
             key = String.format(KEY_TEMPLATE, checkReturnVar + genKey);
             keyLock = key + "@lock";
             log.info("key:" + key);
@@ -187,7 +187,7 @@ public class WaitForAop {
      */
     private Object lockAndExecute(ProceedingJoinPoint joinPoint, LockType lockType, int seconds, String key, String keyLock) throws Throwable {
         Object proceed = joinPoint.proceed();
-        redisLock.setKeyAndCacheTime(key, KeyUtil.castString(proceed), seconds);
+        redisLock.setKeyAndCacheTime(key, keyUtil.castString(proceed), seconds);
         deleteLock(lockType, keyLock);
         return proceed;
     }
