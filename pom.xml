@@ -74,11 +74,8 @@
                     <artifactId>jsr305</artifactId>
                     <groupId>com.google.code.findbugs</groupId>
                 </exclusion>
-                <exclusion>
-                    <artifactId>okio</artifactId>
-                    <groupId>com.squareup.okio</groupId>
-                </exclusion>
             </exclusions>
+
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -100,6 +97,17 @@
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.14.8</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>okio</artifactId>
+                    <groupId>com.squareup.okio</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
 
     </dependencies>
@@ -116,6 +124,7 @@
                 <configuration>
                     <parallel>classes</parallel>
                     <threadCount>5</threadCount>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
         </plugins>
