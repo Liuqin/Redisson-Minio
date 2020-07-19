@@ -64,18 +64,27 @@ public class PayServiceTest {
 
 
     @Test
-    public void minioTest() {
+    public void minioTest() throws InterruptedException {
         boolean state = minioService.doMinioService();
         log.info(String.valueOf(state));
+        Thread.sleep(10000);
     }
 
 
     @Test
     public void TimerBusTest() {
         TimerBus.Add(new TimerTask(1000, () -> {
-            log.info("TimerBusTest TimerBusTest TimerBusTest");
+            log.info("TimerBusTest 1000");
         }));
-
+        TimerBus.Add(new TimerTask(3000, () -> {
+            log.info("TimerBusTest 3000");
+        }));
+        TimerBus.Add(new TimerTask(2000, () -> {
+            log.info("TimerBusTest 2000");
+        }));
+        TimerBus.Add(new TimerTask(1000, () -> {
+            log.info("TimerBusTest 1000 more");
+        }));
 
     }
 
