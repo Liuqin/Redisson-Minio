@@ -18,7 +18,7 @@ public class TimerBus {
             TimerBus.timerMakerHashMap = new ConcurrentHashMap<>();
         }
         String key = String.valueOf(tick) + "," + String.valueOf(wheelSize);
-        if (TimerBus.timerMakerHashMap.size() == 0 || TimerBus.timerMakerHashMap.contains(key)) {
+        if (TimerBus.timerMakerHashMap.size() == 0 || !TimerBus.timerMakerHashMap.contains(key)) {
             TimerMaker timerMaker = new TimerMaker(tick, wheelSize);
             TimerBus.timerMakerHashMap.put(key, timerMaker);
         }
