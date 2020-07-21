@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.qin.BaseApplication;
 import org.qin.timewheel.TimerBus;
 import org.qin.timewheel.TimerCallBackDemo;
+import org.qin.timewheel.TimerTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -75,20 +76,22 @@ public class PayServiceTest {
     public void TimerBusTest() {
         System.out.println(myenum.boss);
 
-        TimerBus.addMoreTimes(new TimerCallBackDemo(),null,1000,6);
+//简单用法
+        TimerBus.add(new TimerTask(3000, () -> log.info("TimerBusTest 3000")));
+        TimerBus.add(new TimerTask(2000, () -> log.info("TimerBusTest 2000")));
+        TimerBus.add(new TimerTask(1000, () -> log.info("TimerBusTest 1000 more")));
 
-//        TimerBus.add(new TimerTask(1000, () -> {
-//            log.info("TimerBusTest 1000");
-//            log.info("第一次进 时间轮");
-//            TimerBus.add(new TimerTask(1000, () -> {
-//                log.info("再次进入时间轮");
-//            }));
-//
-//        }));
-//        TimerBus.add(new TimerTask(3000, () -> log.info("TimerBusTest 3000")));
-//        TimerBus.add(new TimerTask(2000, () -> log.info("TimerBusTest 2000")));
-//        TimerBus.add(new TimerTask(1000, () -> log.info("TimerBusTest 1000 more")));
+        // 复杂用法
+        TimerBus.add(new TimerTask(1000, () -> {
+            log.info("TimerBusTest 1000");
+            log.info("第一次进 时间轮");
+            TimerBus.add(new TimerTask(1000, () -> {
+                log.info("再次进入时间轮");
+            }));
 
+        }));
+        // 特殊用法
+        TimerBus.addMoreTimes(new TimerCallBackDemo(), null, 1000, 6);
     }
 
 
