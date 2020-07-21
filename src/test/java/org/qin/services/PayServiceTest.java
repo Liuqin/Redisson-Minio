@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.qin.BaseApplication;
 import org.qin.timewheel.TimerBus;
-import org.qin.timewheel.TimerTask;
+import org.qin.timewheel.TimerCallBackDemo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -65,27 +65,35 @@ public class PayServiceTest {
 
     @Test
     public void minioTest() throws InterruptedException {
-        boolean state = minioService.doMinioService();
-        log.info(String.valueOf(state));
+//        boolean state = minioService.doMinioService();
+//        log.info(String.valueOf(state));
         Thread.sleep(10000);
     }
 
 
     @Test
     public void TimerBusTest() {
-        TimerBus.Add(new TimerTask(1000, () -> {
-            log.info("TimerBusTest 1000");
-        }));
-        TimerBus.Add(new TimerTask(3000, () -> {
-            log.info("TimerBusTest 3000");
-        }));
-        TimerBus.Add(new TimerTask(2000, () -> {
-            log.info("TimerBusTest 2000");
-        }));
-        TimerBus.Add(new TimerTask(1000, () -> {
-            log.info("TimerBusTest 1000 more");
-        }));
+        System.out.println(myenum.boss);
 
+        TimerBus.addMoreTimes(new TimerCallBackDemo(),null,1000,6);
+
+//        TimerBus.add(new TimerTask(1000, () -> {
+//            log.info("TimerBusTest 1000");
+//            log.info("第一次进 时间轮");
+//            TimerBus.add(new TimerTask(1000, () -> {
+//                log.info("再次进入时间轮");
+//            }));
+//
+//        }));
+//        TimerBus.add(new TimerTask(3000, () -> log.info("TimerBusTest 3000")));
+//        TimerBus.add(new TimerTask(2000, () -> log.info("TimerBusTest 2000")));
+//        TimerBus.add(new TimerTask(1000, () -> log.info("TimerBusTest 1000 more")));
+
+    }
+
+
+    public enum myenum {
+        worker, boss, agents,
     }
 
 
