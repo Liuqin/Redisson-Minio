@@ -26,6 +26,7 @@ public class ScanMiddleWare implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         ScanMiddleWare.applicationContext = applicationContext;
+        ScanMiddleWare.getList();
     }
 
 
@@ -37,14 +38,7 @@ public class ScanMiddleWare implements ApplicationContextAware {
             System.out.println(scanService.getClass().getName());
             ScanBus.ScanServiceList.put(scanService.getServiceName(), scanService.getInstance());
         }
+
         return ScanBus.ScanServiceList;
     }
-
-
-    @PostConstruct
-    public void startWithSystem() {
-        ScanMiddleWare.getList();
-    }
-
-
 }
