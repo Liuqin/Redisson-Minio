@@ -27,6 +27,8 @@ public class ScanMiddleWare implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         ScanMiddleWare.applicationContext = applicationContext;
     }
+
+
     public static HashMap<String, ScanService> getList() {
         System.out.println("系统开始获取所有实现扫描接口的服务:");
         Collection<ScanService> serviceLinkedList = new LinkedList<>(applicationContext.getBeansOfType(ScanService.class).values());
@@ -38,9 +40,9 @@ public class ScanMiddleWare implements ApplicationContextAware {
         return ScanBus.ScanServiceList;
     }
 
+
     @PostConstruct
-    public void startWithSystem()
-    {
+    public void startWithSystem() {
         ScanMiddleWare.getList();
     }
 

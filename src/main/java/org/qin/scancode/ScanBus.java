@@ -23,13 +23,13 @@ public class ScanBus {
         if (instance == null) {
             return null;
         } else {
-            return instance.Hander(map);
+            return instance.hander(map);
         }
     }
 
 
     //验证扫码的合法性
-    public HashMap<String, Object> checkCode(String key, HashMap<String, Object> map) {
+    public HashMap<String, Object> checkCode(String qrCodeStr, HashMap<String, Object> map) {
         return null;
     }
 

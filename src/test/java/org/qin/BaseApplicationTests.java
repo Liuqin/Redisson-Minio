@@ -17,11 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ComponentScan
 @Slf4j
 class BaseApplicationTests {
-
     @Autowired
     private MinioService minioService;
-
-
     @Test
     void contextLoads() {
         log.info(minioService.toString());

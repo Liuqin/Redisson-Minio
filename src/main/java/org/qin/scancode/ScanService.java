@@ -14,5 +14,5 @@ public interface ScanService {
 
     ScanService getInstance();
 
-    HashMap<String, Object> Hander(HashMap<String, Object> map);
+    HashMap<String, Object> hander(HashMap<String, Object> map);
 }

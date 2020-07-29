@@ -19,16 +19,12 @@ public class DemoScanService implements ScanService {
     public String getServiceName() {
         return "demo";
     }
-
-
     @Override
     public ScanService getInstance() {
         return this;
     }
-
-
     @Override
-    public HashMap<String, Object> Hander(HashMap<String, Object> map) {
+    public HashMap<String, Object> hander(HashMap<String, Object> map) {
         return null;
     }
 }
