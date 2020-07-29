@@ -94,9 +94,8 @@ public class PayServiceTest {
         }));
 
         TimerCallBackDemo timerCallBackDemo = new TimerCallBackDemo();
-        timerCallBackDemo.setHashMap(new HashMap<>());
         // 特殊用法
-        TimerBus.addMoreTimes(timerCallBackDemo, 1000, 6);
+        TimerBus.addMoreTimes(timerCallBackDemo, new HashMap<>(),1000, 6);
     }
 
 
