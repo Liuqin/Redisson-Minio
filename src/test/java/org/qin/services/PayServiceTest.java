@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashMap;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {BaseApplication.class, PayServiceTest.class, MinioService.class})
 @Slf4j
@@ -76,7 +78,7 @@ public class PayServiceTest {
     public void TimerBusTest() {
         System.out.println(myenum.boss);
 
-//简单用法
+        //简单用法
         TimerBus.add(new TimerTask(3000, () -> log.info("TimerBusTest 3000")));
         TimerBus.add(new TimerTask(2000, () -> log.info("TimerBusTest 2000")));
         TimerBus.add(new TimerTask(1000, () -> log.info("TimerBusTest 1000 more")));
@@ -90,8 +92,11 @@ public class PayServiceTest {
             }));
 
         }));
+
+        TimerCallBackDemo timerCallBackDemo = new TimerCallBackDemo();
+        timerCallBackDemo.setHashMap(new HashMap<>());
         // 特殊用法
-        TimerBus.addMoreTimes(new TimerCallBackDemo(), null, 1000, 6);
+        TimerBus.addMoreTimes(timerCallBackDemo, 1000, 6);
     }
 
 
