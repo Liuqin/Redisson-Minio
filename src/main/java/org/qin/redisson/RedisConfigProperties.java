@@ -21,7 +21,6 @@ public class RedisConfigProperties {
     private String port;
 
 
-
     public static class cluster {
         private List<String> nodes;
 
