@@ -51,7 +51,6 @@ public class PayServiceTest {
         for (int j = 0; j < threadSize; j++) {
             //执行线程
             executorService.execute(() -> {
-
                 ThreadLocals.work(ThreadTest.class, null);
                 ThreadLocals.work(ThreadTest2.class,null);
             });

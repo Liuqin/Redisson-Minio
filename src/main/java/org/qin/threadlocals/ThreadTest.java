@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 /**
  * @title: ThreadTest
- * @decription:
+ * @decription: 测试线程副本1
  * @author: liuqin
  * @date: 2020/7/30 23:34
  */
@@ -22,7 +22,7 @@ public class ThreadTest implements ThreadHelper {
 
 
     @Override
-    public HashMap<String, Object> dowork(HashMap workmap) {
+    public HashMap<String, Object> doWork(HashMap workmap) {
         System.out.println("业务1副本地址");
         return null;
     }

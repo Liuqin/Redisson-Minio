@@ -13,7 +13,7 @@ import java.util.LinkedList;
 
 /**
  * @title: ScanServiceWare
- * @decription:
+ * @decription: 副本线程容器管理中间件
  * @author: liuqin
  * @date: 2020/7/29 09:42
  */

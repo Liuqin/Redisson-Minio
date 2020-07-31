@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 /**
  * @title: ServicesIoc
- * @decription:
+ * @decription: 线程副本公共总线函数
  * @author: liuqin
  * @date: 2020/7/29 09:23
  */

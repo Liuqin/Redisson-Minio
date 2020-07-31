@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @title: ThreadLocals
- * @decription:
+ * @decription: 公共处理秒杀副本函数
  * @author: liuqin
  * @date: 2020/7/30 22:12
  */
@@ -34,7 +34,7 @@ public final class ThreadLocals {
             linkMap.put(classname, threadLocal);
         }
         System.out.println("副本内存地址:" + System.identityHashCode(link));
-        HashMap<String, Object> dowork = link.dowork(workMap);
+        HashMap<String, Object> dowork = link.doWork(workMap);
         if (dowork != null) {
             result = dowork;
         }

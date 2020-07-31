@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 /**
  * @title: ThreadServices
- * @decription:
+ * @decription: 副本线程通用接口
  * @author: liuqin
  * @date: 2020/7/30 22:21
  */
@@ -13,5 +13,5 @@ public interface ThreadHelper {
 
     <T extends ThreadHelper> T create();
 
-    HashMap<String, Object> dowork(HashMap<String, Object> workmap);
+    HashMap<String, Object> doWork(HashMap<String, Object> workmap);
 }
