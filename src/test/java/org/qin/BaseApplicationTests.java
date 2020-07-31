@@ -19,6 +19,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 class BaseApplicationTests {
     @Autowired
     private MinioService minioService;
+
+
     @Test
     void contextLoads() {
         log.info(minioService.toString());

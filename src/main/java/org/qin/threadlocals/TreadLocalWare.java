@@ -1,6 +1,7 @@
 package org.qin.threadlocals;
 
 
+import lombok.SneakyThrows;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -22,6 +23,7 @@ public class TreadLocalWare implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
 
 
+    @SneakyThrows
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         TreadLocalWare.applicationContext = applicationContext;
@@ -29,13 +31,13 @@ public class TreadLocalWare implements ApplicationContextAware {
     }
 
 
-    public static HashMap<String, ThreadHelper> getList() {
+    public static HashMap<String, ThreadHelper> getList() throws IllegalAccessException, InstantiationException {
         System.out.println("系统开始获取所有副本实现扫描接口的服务:");
         Collection<ThreadHelper> serviceLinkedList = new LinkedList<>(applicationContext.getBeansOfType(ThreadHelper.class).values());
         ThreadLocalBus.threadHelperList = new HashMap<>();
         for (ThreadHelper threadHelper : serviceLinkedList) {
             System.out.println(threadHelper.getClass().getName());
-            ThreadLocalBus.threadHelperList.put(threadHelper.getClass().getName(), threadHelper.create());
+            ThreadLocalBus.threadHelperList.put(threadHelper.getClass().getName(), threadHelper.getClass().newInstance());
         }
         return ThreadLocalBus.threadHelperList;
     }

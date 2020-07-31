@@ -42,11 +42,11 @@ public class PayServiceTest {
         HashMap<String, Object> stringObjectHashMap = new HashMap<>();
 
         int threadSize = 100;
-//创建线程池
+        //创建线程池
         ExecutorService executorService = Executors.newFixedThreadPool(threadSize);
-//开始时间
+        //开始时间
         long start = System.currentTimeMillis();
-//让线程池中的每一个线程都开始工作
+        //让线程池中的每一个线程都开始工作
         for (int j = 0; j < threadSize; j++) {
             //执行线程
             executorService.execute(() -> {
@@ -54,7 +54,7 @@ public class PayServiceTest {
                 ThreadLocals.work(ThreadTest.class, null);
             });
         }
-//等线程全部执行完后关闭线程池
+        //等线程全部执行完后关闭线程池
         executorService.shutdown();
         executorService.awaitTermination(Integer.MAX_VALUE, TimeUnit.DAYS);
 
