@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.qin.BaseApplication;
 import org.qin.threadlocals.ThreadLocals;
 import org.qin.threadlocals.ThreadTest;
+import org.qin.threadlocals.ThreadTest2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -52,6 +53,7 @@ public class PayServiceTest {
             executorService.execute(() -> {
 
                 ThreadLocals.work(ThreadTest.class, null);
+                ThreadLocals.work(ThreadTest2.class,null);
             });
         }
         //等线程全部执行完后关闭线程池
