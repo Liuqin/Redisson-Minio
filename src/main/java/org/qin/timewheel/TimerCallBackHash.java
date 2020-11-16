@@ -1,6 +1,5 @@
 package org.qin.timewheel;
 
-
 import lombok.Data;
 
 import java.util.HashMap;
@@ -13,5 +12,6 @@ import java.util.HashMap;
  */
 @Data
 public class TimerCallBackHash {
-    public HashMap<String,Object> hashMap;
+
+    private HashMap<String, Object> hashMap;
 }

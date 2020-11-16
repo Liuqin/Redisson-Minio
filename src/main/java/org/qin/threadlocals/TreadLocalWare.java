@@ -1,6 +1,5 @@
 package org.qin.threadlocals;
 
-
 import lombok.SneakyThrows;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -20,6 +19,7 @@ import java.util.LinkedList;
 
 @Component
 public class TreadLocalWare implements ApplicationContextAware {
+
     private static ApplicationContext applicationContext;
 
 
@@ -37,7 +37,9 @@ public class TreadLocalWare implements ApplicationContextAware {
         ThreadLocalBus.threadHelperList = new HashMap<>();
         for (ThreadHelper threadHelper : serviceLinkedList) {
             System.out.println(threadHelper.getClass().getName());
-            ThreadLocalBus.threadHelperList.put(threadHelper.getClass().getName(), threadHelper.getClass().newInstance());
+            Object threadHelperBean = ThreadContext.getBeanByClass(threadHelper.getClass());
+            ThreadLocalBus.threadHelperList.put(threadHelper.getClass().getName(), (ThreadHelper) threadHelperBean);
+            // ThreadLocalBus.threadHelperList.put(threadHelper.getClass().getName(), threadHelper.getClass().newInstance());
         }
         return ThreadLocalBus.threadHelperList;
     }

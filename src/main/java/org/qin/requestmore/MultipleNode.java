@@ -1,5 +1,4 @@
-package org.qin.request_more;
-
+package org.qin.requestmore;
 
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -17,7 +16,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author: liuqin
  * @date: 2020/7/8 09:25
  */
-
 
 @Component
 @Slf4j
@@ -56,6 +54,7 @@ public class MultipleNode {
 
     @Data
     public class ThreadRequest extends Thread {
+
         private AtomicBoolean canceled;
         private SynchronousQueue<String> queue;
         private PostData postData;
@@ -85,6 +84,5 @@ public class MultipleNode {
             return canceled.get();
         }
     }
-
 
 }

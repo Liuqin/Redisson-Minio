@@ -1,6 +1,5 @@
 package org.qin.minio;
 
-
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ToString
 public class MinioProperties {
+
     @Value("${minio.endpoint}")
     private String url;
     @Value("${minio.accessKey}")

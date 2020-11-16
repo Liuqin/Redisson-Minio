@@ -1,5 +1,4 @@
-package org.qin.request_more;
-
+package org.qin.requestmore;
 
 import lombok.Data;
 

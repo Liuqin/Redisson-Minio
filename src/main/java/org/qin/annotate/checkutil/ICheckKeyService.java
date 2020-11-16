@@ -1,6 +1,5 @@
 package org.qin.annotate.checkutil;
 
-
 /**
  * @title: CheckKeys
  * @decription: 幂等公共检查接口
@@ -9,6 +8,7 @@ package org.qin.annotate.checkutil;
  */
 
 public interface ICheckKeyService {
+
     /**
      * @return CheckResult 是否开启幂等
      * @author liuqin

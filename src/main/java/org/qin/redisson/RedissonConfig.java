@@ -13,10 +13,9 @@ import java.util.List;
 
 @Configuration
 public class RedissonConfig {
+
     @Autowired
     private RedisConfigProperties redisConfigProperties;
-
-
     /**
      * @return
      * @descripttion 添加redisson的bean
@@ -45,7 +44,6 @@ public class RedissonConfig {
             }
             return (Redisson) Redisson.create(config);
         }
-
 
     }
 }

@@ -1,6 +1,5 @@
 package org.qin.annotate.checkutil;
 
-
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -10,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date: 2020/6/18 11:16
  */
 public class ChecksContainer {
+
     private static ConcurrentHashMap<String, ICheckKeyService> IOC;
 
 

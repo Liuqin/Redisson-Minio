@@ -1,4 +1,4 @@
-package org.qin.request_more;
+package org.qin.requestmore;
 
 import okhttp3.*;
 import org.slf4j.Logger;
@@ -8,15 +8,12 @@ import org.springframework.stereotype.Component;
 import java.util.Iterator;
 import java.util.Map;
 
-
 /**
  * @author LiuQin
  */
 
-
 @Component
 public class MultipleNodeRequest {
-
 
     private final Logger logger = LoggerFactory.getLogger(MultipleNodeRequest.class);
 

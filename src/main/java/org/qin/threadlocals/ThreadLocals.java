@@ -1,6 +1,5 @@
 package org.qin.threadlocals;
 
-
 import lombok.SneakyThrows;
 
 import java.util.HashMap;
@@ -56,6 +55,5 @@ public final class ThreadLocals {
         }
         return link;
     }
-
 
 }

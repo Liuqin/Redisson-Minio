@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class RedisLuaLock {
+
     @Autowired
     private StringRedisTemplate template;
     private static final Long RELEASE_SUCCESS = 1L;

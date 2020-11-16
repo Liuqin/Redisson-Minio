@@ -1,6 +1,5 @@
 package org.qin.annotate.checkimpl;
 
-
 /**
  * @title: CheckKeys
  * @decription:
@@ -8,6 +7,7 @@ package org.qin.annotate.checkimpl;
  * @date: 2020/6/18 09:18
  */
 public interface CheckKeys {
+
     /**
      * @return 是否开启幂等
      * @author liuqin

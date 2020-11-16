@@ -1,6 +1,5 @@
 package org.qin.threadlocals;
 
-
 import java.util.HashMap;
 
 /**
@@ -11,7 +10,7 @@ import java.util.HashMap;
  */
 public interface ThreadHelper {
 
-    <T extends ThreadHelper> T create();
+    <T> T create();
 
     HashMap<String, Object> doWork(HashMap<String, Object> workmap);
 }

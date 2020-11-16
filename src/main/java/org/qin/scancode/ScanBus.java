@@ -1,6 +1,5 @@
 package org.qin.scancode;
 
-
 import java.util.HashMap;
 
 /**
@@ -10,6 +9,7 @@ import java.util.HashMap;
  * @date: 2020/7/29 09:23
  */
 public class ScanBus {
+
     public static HashMap<String, ScanService> ScanServiceList;
 
 

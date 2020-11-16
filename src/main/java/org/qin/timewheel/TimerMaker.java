@@ -1,6 +1,5 @@
 package org.qin.timewheel;
 
-
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import java.util.concurrent.*;
@@ -12,6 +11,7 @@ import java.util.concurrent.*;
  * @date: 2020/7/17 10:33
  */
 public class TimerMaker {
+
     /**
      * 一个Timer只有一个delayQueue
      */
@@ -41,12 +41,13 @@ public class TimerMaker {
         int nThreads = Runtime.getRuntime().availableProcessors();
         ThreadFactory boosThreadFactory = new ThreadFactoryBuilder().setNameFormat("boos-pool-%d").build();
         ThreadFactory workerThreadFactory = new ThreadFactoryBuilder().setNameFormat("worker-pool-%d").build();
-        ExecutorService workerPool = new ThreadPoolExecutor(5, 200, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(1024), workerThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+        ExecutorService workerPool = new ThreadPoolExecutor(2 * nThreads + 2, 200, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(1024), workerThreadFactory, new ThreadPoolExecutor.AbortPolicy());
         ExecutorService bossPool = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(1024), boosThreadFactory, new ThreadPoolExecutor.AbortPolicy());
         this.delayQueue = new DelayQueue<>();
         this.timeWheel = new TimeWheel(tick, wheelSize, System.currentTimeMillis(), delayQueue);
         this.workerThreadPool = workerPool;
         this.bossThreadPool = bossPool;
+
 //        this.workerThreadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2 + 2);
 //        this.bossThreadPool = Executors.newFixedThreadPool(1);
 

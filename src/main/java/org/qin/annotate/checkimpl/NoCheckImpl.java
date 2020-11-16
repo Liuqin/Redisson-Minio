@@ -1,6 +1,5 @@
 package org.qin.annotate.checkimpl;
 
-
 import org.qin.annotate.checkutil.CheckResult;
 import org.qin.annotate.checkutil.ICheckKeyService;
 import org.springframework.stereotype.Component;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class NoCheckImpl implements ICheckKeyService {
+
     @Override
     public CheckResult check(Object[] args) {
         CheckResult checkResult = new CheckResult();

@@ -1,10 +1,7 @@
 package org.qin.timewheel;
-
-
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * @title: TimerBus
  * @decription:
@@ -12,26 +9,24 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date: 2020/7/17 10:36
  */
 public class TimerBus {
-    private static ConcurrentHashMap<String, TimerMaker> timerMakerHashMap;
 
+    private static ConcurrentHashMap<String, TimerMaker> timerMakerHashMap;
 
     public static void add(int tick, int wheelSize, TimerTask timeTask) {
         if (TimerBus.timerMakerHashMap == null) {
             TimerBus.timerMakerHashMap = new ConcurrentHashMap<>();
         }
-        String key = String.valueOf(tick) + "," + String.valueOf(wheelSize);
-        if (TimerBus.timerMakerHashMap.size() == 0 || !TimerBus.timerMakerHashMap.contains(key)) {
+        String key = tick + "," + wheelSize;
+        if (TimerBus.timerMakerHashMap.size() == 0 || !TimerBus.timerMakerHashMap.containsKey(key)) {
             TimerMaker timerMaker = new TimerMaker(tick, wheelSize);
             TimerBus.timerMakerHashMap.put(key, timerMaker);
         }
         TimerBus.timerMakerHashMap.get(key).addTask(timeTask);
     }
 
-
     public static void add(TimerTask timerTask) {
         TimerBus.add(50, 120, timerTask);
     }
-
 
     /**
      * @return
@@ -42,15 +37,15 @@ public class TimerBus {
      */
     public static void addMoreTimes(TimerBusCallBack timerBusCallBack, HashMap<String, Object> hashmap, int Interval, int maxTimes) {
         AtomicInteger count = new AtomicInteger();
-        TimerBus.add(new TimerTask(Interval, () -> {
-            count.getAndIncrement();
-            if (count.get() <= maxTimes && !timerBusCallBack.doWork(hashmap) && maxTimes > 0) {
-                addMoreTimes(timerBusCallBack, hashmap, Interval, maxTimes - 1);
-            }
-        }));
-
+        if (maxTimes > count.get()) {
+            TimerBus.add(new TimerTask(Interval, () -> {
+                count.getAndIncrement();
+                if (count.get() <= maxTimes && !timerBusCallBack.doWork(hashmap) && maxTimes > 0) {
+                    addMoreTimes(timerBusCallBack, hashmap, Interval, maxTimes - 1);
+                }
+            }));
+        }
     }
-
 
     /**
      * @return
@@ -68,8 +63,6 @@ public class TimerBus {
                 intervalMoreTimes(timerBusCallBack, hashmap, maxTimes - 1, intervalTime, moreInterval);
             }
         }));
-
     }
-
 }
 

@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
  * @author LiuQin
  */
 
-
 @Slf4j
 @Component
 public class KeyUtil {
+
     public static String generate(Method method, String[] excludeKeys, Object... args) {
         StringBuilder sb = new StringBuilder(method.toString());
         for (Object arg : args) {
@@ -83,6 +83,5 @@ public class KeyUtil {
         }
         return buf.toString();
     }
-
 
 }

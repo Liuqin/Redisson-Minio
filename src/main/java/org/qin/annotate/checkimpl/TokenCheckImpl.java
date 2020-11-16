@@ -1,6 +1,5 @@
 package org.qin.annotate.checkimpl;
 
-
 import org.qin.annotate.checkutil.CheckResult;
 import org.qin.annotate.checkutil.ICheckKeyService;
 import org.qin.annotate.checkutil.KeyToken;
@@ -13,7 +12,8 @@ import org.springframework.stereotype.Component;
  * @date: 2020/6/18 09:58
  */
 @Component
-public class TokenCheck implements ICheckKeyService {
+public class TokenCheckImpl implements ICheckKeyService {
+
     @Override
     public CheckResult check(Object[] args) {
         CheckResult checkResult = new CheckResult();

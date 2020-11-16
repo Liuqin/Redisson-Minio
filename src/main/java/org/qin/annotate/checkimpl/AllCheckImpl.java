@@ -1,6 +1,5 @@
 package org.qin.annotate.checkimpl;
 
-
 import org.qin.annotate.checkutil.CheckResult;
 import org.qin.annotate.checkutil.ICheckKeyService;
 
@@ -11,7 +10,6 @@ import org.qin.annotate.checkutil.ICheckKeyService;
  * @date: 2020/6/19 13:53
  */
 public class AllCheckImpl implements ICheckKeyService {
-
 
     @Override
     public CheckResult check(Object[] args) {

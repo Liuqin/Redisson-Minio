@@ -1,6 +1,5 @@
 package org.qin.minio;
 
-
 import io.minio.messages.Item;
 import io.minio.messages.Owner;
 
@@ -12,7 +11,6 @@ import java.util.Date;
  * @author: liuqin
  * @date: 2020/6/4 10:27
  */
-
 
 public class MinioItem {
 

@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 @Component
 public class ThreadTest implements ThreadHelper {
+
     @Override
     public ThreadTest create() {
         System.out.println("业务1副本");

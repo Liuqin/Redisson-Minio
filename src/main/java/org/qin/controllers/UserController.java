@@ -1,6 +1,5 @@
 package org.qin.controllers;
 
-
 import org.springframework.stereotype.Controller;
 
 /**
@@ -11,4 +10,5 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class UserController {
+
 }

@@ -2,11 +2,11 @@ package org.qin.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.qin.annotate.WaitFor;
-import org.qin.annotate.checkimpl.TokenCheck;
+import org.qin.annotate.checkimpl.TokenCheckImpl;
 import org.qin.annotate.checkutil.LockType;
 import org.qin.annotate.checkutil.RedisLock;
-import org.qin.request_more.MultipleNode;
-import org.qin.request_more.PostData;
+import org.qin.requestmore.MultipleNode;
+import org.qin.requestmore.PostData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +33,7 @@ public class PayService {
     }
 
 
-    @WaitFor(seconds = 6, lockType = LockType.RedissonLock, keysCheck = TokenCheck.class, excludeKeys = {"name1", "liuq1"})
+    @WaitFor(seconds = 6, lockType = LockType.RedissonLock, keysCheck = TokenCheckImpl.class, excludeKeys = {"name1", "liuq1"})
     public int pay2(Map<String, Object> abc, String xyz) {
         log.info("模拟函数执行时间2");
         try {
@@ -72,6 +72,5 @@ public class PayService {
         }
         multipleNode.getResult(nodes);
     }
-
 
 }

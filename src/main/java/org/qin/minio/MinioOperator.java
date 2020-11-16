@@ -1,6 +1,6 @@
 package org.qin.minio;
 
-
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.minio.MinioClient;
 import io.minio.ObjectStat;
 import io.minio.Result;
@@ -50,7 +50,10 @@ public class MinioOperator {
      * @date 2020/6/5
      */
     public ExecutorService newCachedThreadPool() {
-        return new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+
+        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("minio-pool-%d").build();
+        ExecutorService singleThreadPool = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<>(), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+        return singleThreadPool;
     }
 
 
@@ -252,6 +255,5 @@ public class MinioOperator {
             return null;
         }
     }
-
 
 }

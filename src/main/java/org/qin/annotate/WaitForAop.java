@@ -1,6 +1,5 @@
 package org.qin.annotate;
 
-
 import com.alibaba.fastjson.JSON;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class WaitForAop {
+
     private final String KEY_TEMPLATE = "waitfor_%s";
     @Autowired
     private RedisLock redisLock;
@@ -47,13 +47,13 @@ public class WaitForAop {
      * @date 2020/6/3
      */
     @SneakyThrows
-    @Around("@annotation(idempotentWaitFor)")
-    public Object around(ProceedingJoinPoint joinPoint, WaitFor idempotentWaitFor) {
+    @Around("@annotation(waitFor)")
+    public Object around(ProceedingJoinPoint joinPoint, WaitFor waitFor) {
 
         long l = System.currentTimeMillis();
-        int seconds = idempotentWaitFor.seconds();
-        Class<? extends ICheckKeyService> cls = idempotentWaitFor.keysCheck();
-        LockType lockType = idempotentWaitFor.lockType();
+        int seconds = waitFor.seconds();
+        Class<? extends ICheckKeyService> cls = waitFor.keysCheck();
+        LockType lockType = waitFor.lockType();
         int waitTime = seconds + 3;
         String keyLock = "";
         String key = "";
@@ -79,10 +79,9 @@ public class WaitForAop {
                 checkReturnVar += "_";
             }
 
-
             Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
             // 试图在Map中去掉部分key,排除其幂等影响,生成加密key
-            String[] ex = idempotentWaitFor.excludeKeys();
+            String[] ex = waitFor.excludeKeys();
             String genKey = KeyUtil.generate(method, ex, args);
             key = String.format(KEY_TEMPLATE, checkReturnVar + genKey);
             keyLock = key + "@lock";
@@ -117,7 +116,6 @@ public class WaitForAop {
                     objectResult = readFromRedis(joinPoint, waitTime, key, keyLock);
                 }
             }
-
 
             long l1 = System.currentTimeMillis();
             log.info("time:" + String.valueOf(l1 - l));
@@ -204,13 +202,10 @@ public class WaitForAop {
     @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
     private Object readFromRedis(ProceedingJoinPoint proceedingJoinPoint, int waitTime, String key, String keyLock) throws Exception {
 //        log.info("尝试缓存" + keyLock);
-
         int tryCount = 0;
         boolean take = true;
-
         int maxcount = 100 * waitTime;
         String redisResult = "";
-
         while (take) {
             redisResult = redisLock.getValue(key);
             tryCount++;

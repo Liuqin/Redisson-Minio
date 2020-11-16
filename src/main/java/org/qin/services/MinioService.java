@@ -1,6 +1,5 @@
 package org.qin.services;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.qin.minio.MinioItem;
 import org.qin.minio.MinioOperator;
@@ -48,7 +47,6 @@ public class MinioService {
             }
 
         }
-
 
         return isCreated;
     }

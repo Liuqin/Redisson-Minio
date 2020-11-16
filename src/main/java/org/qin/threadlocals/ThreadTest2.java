@@ -1,6 +1,5 @@
 package org.qin.threadlocals;
 
-
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -14,10 +13,11 @@ import java.util.HashMap;
 
 @Component
 public class ThreadTest2 implements ThreadHelper {
+
     @Override
-    public <T extends ThreadHelper> T create() {
+    public ThreadTest2  create() {
         System.out.println("业务2副本");
-        return (T) new ThreadTest2();
+        return new ThreadTest2();
     }
 
 

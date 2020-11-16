@@ -1,6 +1,5 @@
 package org.qin.redisson;
 
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +14,14 @@ import java.util.List;
 @Component
 @ConfigurationProperties(prefix = "spring.redis")
 public class RedisConfigProperties {
+
     private String password;
     private cluster cluster;
     private String host;
     private String port;
 
-
     public static class cluster {
+
         private List<String> nodes;
 
 

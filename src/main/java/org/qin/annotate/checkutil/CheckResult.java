@@ -1,6 +1,5 @@
 package org.qin.annotate.checkutil;
 
-
 import lombok.Data;
 
 /**
@@ -12,6 +11,7 @@ import lombok.Data;
 
 @Data
 public class CheckResult {
+
     /**
      * 唯一标识
      */
@@ -20,6 +20,5 @@ public class CheckResult {
      * 验证是否幂等
      */
     private Boolean valid;
-
 
 }

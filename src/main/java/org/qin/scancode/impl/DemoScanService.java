@@ -1,6 +1,5 @@
 package org.qin.scancode.impl;
 
-
 import org.qin.scancode.ScanService;
 import org.springframework.stereotype.Component;
 
@@ -15,14 +14,19 @@ import java.util.HashMap;
 
 @Component
 public class DemoScanService implements ScanService {
+
     @Override
     public String getServiceName() {
         return "demo";
     }
+
+
     @Override
     public ScanService getInstance() {
         return this;
     }
+
+
     @Override
     public HashMap<String, Object> hander(HashMap<String, Object> map) {
         return null;

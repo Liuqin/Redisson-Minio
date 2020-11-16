@@ -1,6 +1,5 @@
 package org.qin.annotate.checkutil;
 
-
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -14,6 +13,7 @@ import java.util.Map;
 
 @Component
 public class KeyToken {
+
     /**
      * @return
      * @descripttion 取出Map中的特定数据
